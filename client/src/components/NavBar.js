@@ -1,8 +1,19 @@
 import React from 'react'
-import {AppBar, Container, Toolbar, Box, IconButton, Typography} from '@mui/material'
+import {AppBar, Container, Toolbar, Box, IconButton, Typography, Button} from '@mui/material'
 import {Menu} from '@mui/icons-material'
 
+import photourl from '../test.png'
+import { useValue } from '../context/ContextProvider'
+import UserIcons from './user/UserIcons'
+
+const testuser = {name: 'test', photourl}
+
+
 const NavBar = () => {
+
+    const {state:{currentUser}, dispatch} = useValue()
+
+
   return (
 
     /* AppBar from Material UI */
@@ -37,6 +48,13 @@ const NavBar = () => {
                 >
                     BM
                 </Typography>
+                {!currentUser ? (
+                    <Button color='inherit' variant='outlined' onClick={() => dispatch({type: 'UPDATE_USER', payload:testuser})}>Login</Button>
+                ) : (
+                    <UserIcons/>
+
+                )}
+                {/* Login Button */}
             </Toolbar>
         </Container>
 
