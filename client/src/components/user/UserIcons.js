@@ -5,7 +5,7 @@ import { Avatar, Box, IconButton } from '@mui/material'
 import React from 'react'
 import { useValue } from '../../context/ContextProvider'
 import defaultIcon from '../../test.png';
-import UserMenu from '../UserMenu';
+import UserMenu from './UserMenu';
 
 const UserIcons = () => {
 
