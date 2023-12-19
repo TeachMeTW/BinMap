@@ -49,7 +49,7 @@ const NavBar = () => {
                     BM
                 </Typography>
                 {!currentUser ? (
-                    <Button color='inherit' variant='outlined' onClick={() => dispatch({type: 'UPDATE_USER', payload:testuser})}>Login</Button>
+                    <Button color='inherit' variant='outlined' onClick={() => dispatch({type: 'OPEN_LOGIN'})}>Login</Button>
                 ) : (
                     <UserIcons/>
 
