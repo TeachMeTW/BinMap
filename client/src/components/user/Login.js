@@ -5,6 +5,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, I
 import React, { useState, useRef, useEffect } from 'react'
 import { useValue } from '../../context/ContextProvider'
 import Password from './Password'
+import GoogleAuth from './GoogleAuth'
 
 
 const Login = () => {
@@ -23,8 +24,25 @@ const Login = () => {
     dispatch({type:'CLOSE_LOGIN'})
   }
 
+  // Login Submit
  const handleSubmit = (e) => {
     e.preventDefault()
+
+    // Loading Test
+    dispatch({type:'START_LOADING'})
+
+    setTimeout(() => {
+        dispatch({type:'END_LOADING'});
+    }, 6000)
+
+    // Notif Test
+    const password = passwordRef.current.value
+    const confirm = confirmPassRef.current.value
+
+    if (password !== confirm) {
+        dispatch({type:'UPDATE_ALERT', payload:{open:true, severity:'error', message:'Password does not match!'}})
+    }
+
  }
 
  const nameRef = useRef()
@@ -103,7 +121,9 @@ const Login = () => {
                 {isRegister?'Login':'Register'}
             </Button>
         </DialogActions>
-
+        <DialogActions sx={{justifyContent:'center', py:'24px'}}>
+            <GoogleAuth/>
+        </DialogActions>
     </Dialog>
   )
 }
