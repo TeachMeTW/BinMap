@@ -2,11 +2,9 @@ import React from 'react'
 import {AppBar, Container, Toolbar, Box, IconButton, Typography, Button} from '@mui/material'
 import {Menu} from '@mui/icons-material'
 
-import photourl from '../test.png'
 import { useValue } from '../context/ContextProvider'
 import UserIcons from './user/UserIcons'
 
-const testuser = {name: 'test', photourl}
 
 
 const NavBar = () => {
