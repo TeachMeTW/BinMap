@@ -13,7 +13,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useValue } from "../../context/ContextProvider";
 import Password from "./Password";
 import GoogleAuth from "./GoogleAuth";
-import { register } from "../../actions/user";
+import { login, register } from "../../actions/user";
 
 const Login = () => {
   const nameRef = useRef();
@@ -45,7 +45,10 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    // send login if not register
+    if (!isRegister) {
+      return login({ email, password }, dispatch);
+    }
+
     const name = nameRef.current.value;
     const confirmPassword = confirmPassRef.current.value;
 
