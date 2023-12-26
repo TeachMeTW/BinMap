@@ -14,7 +14,7 @@ const useTokenValidity = () => {
         dispatch({ type: "UPDATE_USER", payload: null });
       }
     }
-  }, [currentUser]);
+  }, []);
 };
 
 export default useTokenValidity;

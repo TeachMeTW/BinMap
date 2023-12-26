@@ -3,8 +3,8 @@ const fetchData = async (
   dispatch
 ) => {
   const headers = token
-    ? { "Content-Type": "application", authorization: `Bearer ${token}` }
-    : { "Content-Type": "application" };
+    ? { "Content-Type": "application/json", authorization: `Bearer ${token}` }
+    : { "Content-Type": "application/json" };
   body = body ? { body: JSON.stringify(body) } : {};
   try {
     const response = await fetch(url, { method, headers, ...body });
@@ -12,16 +12,17 @@ const fetchData = async (
     if (!data.success) {
       if (response.status === 401) {
         dispatch({ type: "UPDATE_USER", payload: null });
-        throw new Error(data.message);
       }
+      throw new Error(data.message);
     }
     return data.result;
   } catch (error) {
+    console.log(error + "dab");
     dispatch({
       type: "UPDATE_ALERT",
       payload: { open: true, severity: "error", message: error.message },
     });
-    console.log(error);
+
     return null;
   }
 };

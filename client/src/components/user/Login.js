@@ -16,6 +16,11 @@ import GoogleAuth from "./GoogleAuth";
 import { register } from "../../actions/user";
 
 const Login = () => {
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPassRef = useRef();
+
   // State Tracker
   const {
     state: { openLogin },
@@ -57,11 +62,6 @@ const Login = () => {
     // register request
     register({ name, email, password }, dispatch);
   };
-
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPassRef = useRef();
 
   useEffect(() => {
     isRegister ? setTitle("Register") : setTitle("Login");

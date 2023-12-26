@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json({ limit: "50mb" }));
-app.use("/register", userRouter);
+app.use("/user", userRouter);
 app.use("/bin", binRouter);
 app.use("/", (req, res) => res.json({ message: "BinMaps API" }));
 app.use((req, res) =>
