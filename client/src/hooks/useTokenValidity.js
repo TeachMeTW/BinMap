@@ -8,13 +8,13 @@ const useTokenValidity = () => {
     dispatch,
   } = useValue();
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && typeof currentUser.token === "string") {
       const decodedToken = jwtDecode(currentUser.token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         dispatch({ type: "UPDATE_USER", payload: null });
       }
     }
-  }, []);
+  }, [currentUser]);
 };
 
 export default useTokenValidity;
