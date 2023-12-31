@@ -38,6 +38,12 @@ const reducer = (state, action) => {
         alert: action.payload,
       };
 
+    case "UPDATE_PROFILE":
+      return {
+        ...state,
+        profile: action.payload,
+      };
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

@@ -1,4 +1,5 @@
 import { OAuth2Client } from "google-auth-library";
+import jwt from "jsonwebtoken";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -6,7 +7,6 @@ const auth = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const googleToken = token.length > 1000;
-    // google verif
     if (googleToken) {
       const ticket = await client.verifyIdToken({
         idToken: token,
@@ -18,14 +18,18 @@ const auth = async (req, res, next) => {
         name: payload.name,
         photoURL: payload.picture,
       };
-    }
-    // jwt verif
-    else {
+    } else {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const { id, name, photoURL } = decodedToken;
+      req.user = { id, name, photoURL };
     }
     next();
   } catch (error) {
     console.log(error);
-    res.status(401).json({ success: false, message: "Auth Error Occured" });
+    res.status(401).json({
+      success: false,
+      message: "Something is wrong with your authorization!",
+    });
   }
 };
 
