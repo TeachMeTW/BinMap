@@ -44,6 +44,15 @@ const reducer = (state, action) => {
         profile: action.payload,
       };
 
+    case "UPDATE_IMAGES":
+      return { ...state, images: [...state.images, action.payload] };
+
+    case "DELETE_IMAGE":
+      return {
+        ...state,
+        images: state.images.filter((image) => image !== action.payload),
+      };
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
