@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 150 150" space="preserve" version="1.1" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+<circle cx="74.911" cy="76.481" r="26.329" fill="green" opacity="0" stroke="green" stroke-miterlimit="10" stroke-width="2">
+<animate attributeName="opacity" begin=".4" dur="2s" repeatCount="indefinite" values="0;.8;0"/>
+</circle>
+<circle cx="74.911" cy="76.481" r="15.19" fill="green" opacity="0" stroke="green" stroke-miterlimit="10" stroke-width="2">
+<animate attributeName="opacity" begin=".2" dur="2s" repeatCount="indefinite" values="0;.9;0"/>
+</circle>
+<circle cx="74.911" cy="76.481" r="5.063" fill="green" opacity="0" stroke="green" stroke-miterlimit="10" stroke-width="2">
+<animate attributeName="opacity" begin="0" dur="2s" repeatCount="indefinite" values="0;1;0"/>
+</circle>
+<circle cx="74.911" cy="76.481" r="37.975" fill="green" opacity="0" stroke="green" stroke-miterlimit="10" stroke-width="2">
+<animate attributeName="opacity" begin=".6" dur="2s" repeatCount="indefinite" values="0;.5;0"/>
+</circle>
+</svg>

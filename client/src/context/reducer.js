@@ -47,6 +47,12 @@ const reducer = (state, action) => {
     case "UPDATE_IMAGES":
       return { ...state, images: [...state.images, action.payload] };
 
+    case "UPDATE_DETAILS":
+      return {
+        ...state,
+        details: { ...state.details, ...action.payload },
+      };
+
     case "DELETE_IMAGE":
       return {
         ...state,
