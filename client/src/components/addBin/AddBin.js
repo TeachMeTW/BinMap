@@ -7,15 +7,18 @@ import {
   StepButton,
   Stepper,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AddLocation from "./addLocation/AddLocation";
 import AddDetails from "./addDetails/AddDetails";
 import AddImages from "./addImages/AddImages";
 import { useValue } from "../../context/ContextProvider";
+import { Send } from "@mui/icons-material";
+import { createBin } from "../../actions/bin";
 
-const AddBin = () => {
+const AddBin = ({ setPage }) => {
   const {
-    state: { images, details, location },
+    state: { images, details, location, currentUser },
+    dispatch,
   } = useValue();
   const [activeStep, setActiveStep] = useState(0);
   const [steps, setSteps] = useState([
@@ -23,9 +26,16 @@ const AddBin = () => {
     { label: "Details", completed: false },
     { label: "Images", completed: false },
   ]);
+
+  const [showSubmit, setShowSubmit] = useState(false);
+  const addDetailsRef = useRef();
   const handleNext = () => {
+    if (activeStep === 1 && !addDetailsRef.current?.validateBinType()) {
+      return; // Stop here if validation fails in AddDetails
+    }
+
     if (activeStep < steps.length - 1) {
-      setActiveStep((activeStep) => activeStep + 1);
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
       const stepIndex = findUnfinished();
       setActiveStep(stepIndex);
@@ -71,6 +81,29 @@ const AddBin = () => {
       return [...steps];
     });
   };
+
+  useEffect(() => {
+    if (findUnfinished() === -1) {
+      if (!showSubmit) {
+        setShowSubmit(true);
+      } else {
+        if (showSubmit) setShowSubmit(false);
+      }
+    }
+  }, [steps]);
+
+  const handleSubmit = () => {
+    const bin = {
+      lng: location.lng,
+      lat: location.lat,
+      type: details.type,
+      title: details.title,
+      description: details.description,
+      images,
+    };
+    createBin(bin, currentUser, dispatch, setPage);
+  };
+
   return (
     <Container sx={{ my: 4 }}>
       <Stepper
@@ -87,30 +120,39 @@ const AddBin = () => {
           </Step>
         ))}
       </Stepper>
-      <Box>
+      <Box sx={{ pb: 7 }}>
         {
           {
             0: <AddLocation />,
-            1: <AddDetails />,
+            1: <AddDetails ref={addDetailsRef} />,
             2: <AddImages />,
           }[activeStep]
         }
+
+        <Stack direction="row" sx={{ pt: 2, justifyContent: "space-around" }}>
+          <Button
+            color="inherit"
+            disabled={!activeStep}
+            onClick={() => setActiveStep((activeStep) => activeStep - 1)}
+          >
+            Back
+          </Button>
+          <Button disabled={checkDisabled()} onClick={handleNext}>
+            Next
+          </Button>
+        </Stack>
+        {showSubmit && (
+          <Stack sx={{ alignItems: "center" }}>
+            <Button
+              variant="contained"
+              endIcon={<Send />}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </Stack>
+        )}
       </Box>
-      <Stack
-        direction="row"
-        sx={{ pt: 2, pb: 7, justifyContent: "space-around" }}
-      >
-        <Button
-          color="inherit"
-          disabled={!activeStep}
-          onClick={() => setActiveStep((activeStep) => activeStep - 1)}
-        >
-          Back
-        </Button>
-        <Button disabled={checkDisabled()} onClick={handleNext}>
-          Next
-        </Button>
-      </Stack>
     </Container>
   );
 };

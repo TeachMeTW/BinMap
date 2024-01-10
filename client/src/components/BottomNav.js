@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ClusterMap from "./map/ClusterMap";
 import Bin from "./bins/Bin";
 import AddBin from "./addBin/AddBin";
+import Protected from "./protected/Protected";
 
 const BottomNav = () => {
   const [value, setValue] = useState(0);
@@ -22,7 +23,11 @@ const BottomNav = () => {
         {
           0: <ClusterMap />,
           1: <Bin />,
-          2: <AddBin />,
+          2: (
+            <Protected>
+              <AddBin setPage={setValue} />
+            </Protected>
+          ),
         }[value]
       }
 

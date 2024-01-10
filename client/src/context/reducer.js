@@ -62,6 +62,14 @@ const reducer = (state, action) => {
         images: state.images.filter((image) => image !== action.payload),
       };
 
+    case "RESET_BIN":
+      return {
+        ...state,
+        images: [],
+        details: { title: "", description: "" },
+        location: { lng: 0, lat: 0 },
+      };
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
