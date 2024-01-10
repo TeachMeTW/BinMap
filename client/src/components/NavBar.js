@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
-  Container,
-  Toolbar,
   Box,
-  IconButton,
-  Typography,
   Button,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
 } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Lock, Menu } from "@mui/icons-material";
 
 import { useValue } from "../context/ContextProvider";
 import UserIcons from "./user/UserIcons";
+import Sidebar from "./sidebar/Sidebar";
 
 const NavBar = () => {
   const {
@@ -19,31 +20,30 @@ const NavBar = () => {
     dispatch,
   } = useValue();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <AppBar>
-        {/* Containter from Material UI stores the individual Nav Components*/}
         <Container maxWidth="lg">
-          {/* DisableGutters removes padding */}
           <Toolbar disableGutters>
-            {/* Box with margin from right */}
             <Box sx={{ mr: 1 }}>
-              {/* Menu Icon */}
-              <IconButton size="large" color="inherit">
+              <IconButton
+                size="large"
+                color="inherit"
+                onClick={() => setIsOpen(true)}
+              >
                 <Menu />
               </IconButton>
             </Box>
-            {/* Typography Logo/Text, Can be turned into an Icon*/}
             <Typography
               variant="h6"
               component="h1"
               noWrap
               sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
             >
-              BinMap
+              Bin Maps
             </Typography>
-
-            {/* For smaller screens*/}
             <Typography
               variant="h6"
               component="h1"
@@ -55,7 +55,7 @@ const NavBar = () => {
             {!currentUser ? (
               <Button
                 color="inherit"
-                variant="outlined"
+                startIcon={<Lock />}
                 onClick={() => dispatch({ type: "OPEN_LOGIN" })}
               >
                 Login
@@ -63,11 +63,11 @@ const NavBar = () => {
             ) : (
               <UserIcons />
             )}
-            {/* Login Button */}
           </Toolbar>
         </Container>
       </AppBar>
       <Toolbar />
+      <Sidebar {...{ isOpen, setIsOpen }} />
     </>
   );
 };

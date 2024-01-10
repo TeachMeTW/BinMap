@@ -8,6 +8,7 @@ import { Paper, Tooltip } from "@mui/material";
 import recylceImage from "../../recycle.png";
 import trashImage from "../../trash.png";
 import compostImage from "../../compost.png";
+import GeocoderInput from "../sidebar/GeocoderInput";
 
 const supercluster = new Supercluster({
   radius: 75,
@@ -21,9 +22,10 @@ const typeToImageMap = {
 };
 
 const ClusterMap = () => {
+  const [mapInstance, setMapInstance] = useState(null);
   const mapRef = useRef();
   const {
-    state: { bins },
+    state: { filteredBins },
     dispatch,
   } = useValue();
   const [points, setPoints] = useState([]);
@@ -36,7 +38,7 @@ const ClusterMap = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const mappedPoints = bins.map((bin) => ({
+    const mappedPoints = filteredBins.map((bin) => ({
       type: "Feature",
       properties: {
         cluster: false,
@@ -53,7 +55,7 @@ const ClusterMap = () => {
     }));
     setPoints(mappedPoints);
     console.log("Mapped Points:", mappedPoints); // Debugging log
-  }, [bins]);
+  }, [filteredBins]);
 
   useEffect(() => {
     supercluster.load(points);
@@ -69,11 +71,16 @@ const ClusterMap = () => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactMapGL
-        initialViewState={{ latitude: 51.5072, longitude: 0.1276 }}
+        initialViewState={{
+          latitude: 35.30461564549085,
+          longitude: -120.66269072457567,
+          zoom: 12,
+        }}
         mapboxAccessToken={process.env.REACT_APP_MAP_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         ref={mapRef}
         onZoomEnd={(e) => setZoom(Math.round(e.viewState.zoom))}
+        onLoad={(event) => setMapInstance(event.target)} // Set map instance on load
       >
         {clusters.map((cluster) => {
           const { cluster: isCluster, point_count } = cluster.properties;
@@ -132,6 +139,7 @@ const ClusterMap = () => {
             </Marker>
           );
         })}
+        <GeocoderInput map={mapInstance} />
       </ReactMapGL>
     </div>
   );
