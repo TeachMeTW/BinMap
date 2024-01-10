@@ -9,6 +9,7 @@ const initialState = {
   profile: { open: false, file: null, photoURL: "" },
   images: [],
   details: { title: "", description: "", type: "" },
+  location: { lng: 0, lat: 0 },
 };
 
 const Context = createContext(initialState);
