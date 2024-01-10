@@ -70,6 +70,9 @@ const reducer = (state, action) => {
         location: { lng: 0, lat: 0 },
       };
 
+    case "UPDATE_BINS":
+      return { ...state, bins: action.payload };
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

@@ -20,3 +20,10 @@ export const createBin = async (bin, currentUser, dispatch, setPage) => {
 
   dispatch({ type: "END_LOADING" });
 };
+
+export const getBins = async (dispatch) => {
+  const result = await fetchData({ url, method: "GET" }, dispatch);
+  if (result) {
+    dispatch({ type: "UPDATE_BINS", payload: result });
+  }
+};

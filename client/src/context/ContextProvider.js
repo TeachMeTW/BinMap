@@ -10,6 +10,7 @@ const initialState = {
   images: [],
   details: { title: "", description: "", type: "" },
   location: { lng: 0, lat: 0 },
+  bins: [],
 };
 
 const Context = createContext(initialState);
