@@ -36,7 +36,7 @@ const Bin = () => {
                   background:
                     "linear-gradient(to bottom, rgba(0,0,0,0.7)0%, rgba(0,0,0,0.3)70%, rgba(0,0,0,0)100%)",
                 }}
-                title={bin.type}
+                title={bin.type.charAt(0).toUpperCase() + bin.type.slice(1)}
                 actionIcon={
                   <Tooltip title={bin.uName} sx={{ mr: "5px" }}>
                     <Avatar src={bin.uPhoto} />

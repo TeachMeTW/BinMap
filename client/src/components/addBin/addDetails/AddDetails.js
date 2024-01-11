@@ -70,13 +70,23 @@ const AddDetails = forwardRef((props, ref) => {
             control={<Radio />}
             label="Compost"
           />
+          <FormControlLabel
+            value="multi"
+            control={<Radio />}
+            label="MultiType"
+          />
         </RadioGroup>
         {binTypeError && (
           <FormHelperText error>Please select a bin type</FormHelperText>
         )}
       </FormControl>
       <InfoField
-        mainProps={{ name: "title", label: "Title", value: title }}
+        mainProps={{
+          name: "title",
+          label: "Location/Type Example: English 22-210 Trash & Recycle",
+
+          value: title,
+        }}
         minLength={5}
       />
       <InfoField

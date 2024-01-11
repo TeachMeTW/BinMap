@@ -27,7 +27,7 @@ export const getBins = async (dispatch) => {
     dispatch({ type: "UPDATE_BINS", payload: result });
     dispatch({
       type: "FILTER_TYPE",
-      payload: { recycle: true, trash: true, compost: true },
+      payload: { recycle: true, trash: true, compost: true, multi: true },
     });
   }
 };

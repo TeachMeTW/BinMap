@@ -7,6 +7,7 @@ import "./cluster.css";
 import { Paper, Tooltip } from "@mui/material";
 import recylceImage from "../../recycle.png";
 import trashImage from "../../trash.png";
+import multiImage from "../../multi.png";
 import compostImage from "../../compost.png";
 import GeocoderInput from "../sidebar/GeocoderInput";
 
@@ -19,6 +20,7 @@ const typeToImageMap = {
   recycle: recylceImage,
   compost: compostImage,
   trash: trashImage,
+  multi: multiImage,
 };
 
 const ClusterMap = () => {
@@ -49,6 +51,7 @@ const ClusterMap = () => {
         binId: bin._id,
         type: bin.type,
         images: bin.images,
+        title: bin.title,
         uPhoto: bin.uPhoto,
         uName: bin.uName,
       },
@@ -132,7 +135,7 @@ const ClusterMap = () => {
               longitude={longitude}
               latitude={latitude}
             >
-              <Tooltip title={`A ${cluster.properties.type} bin`}>
+              <Tooltip title={`${cluster.properties.title}`}>
                 <Paper
                   component="img"
                   src={imageSrc}

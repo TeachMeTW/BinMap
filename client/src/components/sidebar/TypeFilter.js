@@ -14,12 +14,13 @@ const TypeFilter = () => {
     recycle: true,
     trash: true,
     compost: true,
+    multi: true,
   });
 
   useEffect(() => {
     dispatch({
       type: "FILTER_TYPE",
-      payload: { recycle: true, trash: true, compost: true },
+      payload: { recycle: true, trash: true, compost: true, multi: true },
     });
   }, []);
 
@@ -65,6 +66,16 @@ const TypeFilter = () => {
             />
           }
           label="Compost"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={filter.multi}
+              onChange={handleChange}
+              name="multi"
+            />
+          }
+          label="MultiType"
         />
       </FormGroup>
     </Box>
