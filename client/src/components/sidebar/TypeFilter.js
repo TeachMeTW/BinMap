@@ -5,16 +5,23 @@ import {
   Checkbox,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useValue } from "../../context/ContextProvider";
 
 const TypeFilter = () => {
   const { dispatch } = useValue();
   const [filter, setFilter] = useState({
-    recycle: false,
-    trash: false,
-    compost: false,
+    recycle: true,
+    trash: true,
+    compost: true,
   });
+
+  useEffect(() => {
+    dispatch({
+      type: "FILTER_TYPE",
+      payload: { recycle: true, trash: true, compost: true },
+    });
+  }, []);
 
   const handleChange = (event) => {
     const { name, checked } = event.target;

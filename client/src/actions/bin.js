@@ -25,5 +25,9 @@ export const getBins = async (dispatch) => {
   const result = await fetchData({ url, method: "GET" }, dispatch);
   if (result) {
     dispatch({ type: "UPDATE_BINS", payload: result });
+    dispatch({
+      type: "FILTER_TYPE",
+      payload: { recycle: true, trash: true, compost: true },
+    });
   }
 };

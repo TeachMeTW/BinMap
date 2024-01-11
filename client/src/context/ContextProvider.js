@@ -17,7 +17,7 @@ const initialState = {
   details: { title: "", description: "", type: "" },
   location: { lng: 0, lat: 0 },
   bins: [],
-  typeFilter: null,
+  typeFilter: { recycle: true, trash: true, compost: true },
   addressFilter: null,
   filteredBins: [],
 };

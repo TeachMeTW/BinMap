@@ -14,11 +14,8 @@ const GeocoderInput = ({ map }) => {
       accessToken: process.env.REACT_APP_MAP_TOKEN,
     });
 
-    // Assuming containerRef is a ref to the DOM element where you want to render the geocoder
-    if (containerRef?.current?.children[0]) {
-      containerRef.current.removeChild(containerRef.current.children[0]);
-    }
-    containerRef.current.appendChild(ctrl.onAdd(map)); // Add the geocoder to the container
+    // Append the geocoder to the container
+    containerRef.current.appendChild(ctrl.onAdd(map));
 
     // Event listeners for the geocoder
     ctrl.on("result", (e) => {
@@ -33,8 +30,10 @@ const GeocoderInput = ({ map }) => {
 
     // Clean up on unmount
     return () => {
-      if (containerRef?.current) {
-        containerRef.current.removeChild(ctrl.onRemove());
+      // Properly remove the geocoder control
+      if (containerRef?.current && ctrl.onRemove) {
+        // Call the onRemove method of the geocoder to properly clean it up
+        ctrl.onRemove();
       }
     };
   }, [map, containerRef, dispatch]);

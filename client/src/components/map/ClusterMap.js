@@ -38,6 +38,10 @@ const ClusterMap = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log("Filtered Bins:", filteredBins);
+  }, [filteredBins]);
+
+  useEffect(() => {
     const mappedPoints = filteredBins.map((bin) => ({
       type: "Feature",
       properties: {
@@ -74,7 +78,7 @@ const ClusterMap = () => {
         initialViewState={{
           latitude: 35.30461564549085,
           longitude: -120.66269072457567,
-          zoom: 12,
+          zoom: 5,
         }}
         mapboxAccessToken={process.env.REACT_APP_MAP_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
