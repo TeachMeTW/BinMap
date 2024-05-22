@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import tryCatch from "./utils/tryCatch.js";
+import Bin from "../models/Bin.js";
 
 export const register = tryCatch(async (req, res) => {
   const { name, email, password } = req.body;
@@ -65,6 +66,7 @@ export const updateProfile = tryCatch(async (req, res) => {
   const { _id: id, name, photoURL } = updatedUser;
 
   // TODO: Update all bins by user if user changed
+  await Bin.updateMany({ uid: id }, { uName: name, uPhoto: photoURL });
 
   const token = jwt.sign({ id, name, photoURL }, process.env.JWT_SECRET, {
     expiresIn: "1h",
